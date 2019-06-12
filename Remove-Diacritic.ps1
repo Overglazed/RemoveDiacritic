@@ -1,10 +1,11 @@
 function Remove-Diacritic
 {
 	[CmdletBinding()]
-	PARAM
+	param
 	(
 		[ValidateNotNullOrEmpty()]
-		[String] $String,
+        [String] $String,
+        [Switch] $RemoveSpecialChars,
 		[Text.NormalizationForm] $NormalizationForm = "FormD"
 	)
 
@@ -21,10 +22,17 @@ function Remove-Diacritic
                 [void]$NewStr.Append($_)
             }
         }
+        
+        if ($RemoveSpecialChars){    ##remove any other special characters        
+            
+            $NewStr = $NewStr -replace '[^a-zA-Z0-9\s\"\.,:(){}@\-\+\[\]]', ''
 
-        Write-Output $($NewStr -as [string])
+            return $($NewStr -as [string])
+        }
+        
+        return $($NewStr -as [string])
     }
-    Catch
+    catch
     {
         Write-Error -Message $Error[0].Exception.Message
     }
