@@ -25,7 +25,7 @@ function Remove-Diacritic
         
         if ($RemoveSpecialChars){    ##remove any other special characters        
             
-            $NewStr = $NewStr -replace '[^a-zA-Z0-9\s\"\.,:(){}@\-\+\[\]]', ''
+            $NewStr = $NewStr -replace '[^a-zA-Z0-9\s\"\.,?:(){}@/\\\-\+\[\]]', ''
 
             return $($NewStr -as [string])
         }
